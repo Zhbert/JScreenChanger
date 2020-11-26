@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Main {
 
-    public static void main(String[] args) throws AWTException {
+    public static void main(String[] args) throws AWTException, InterruptedException {
 
         ArrayList<Screen> screenPool = new ArrayList<Screen>();
 
@@ -21,8 +21,8 @@ public class Main {
         GraphicsDevice[] devices = environment.getScreenDevices();
         System.out.println("Screens found: " + devices.length);
         for (int i=0; i<devices.length; i++) {
-            DisplayMode dmode = devices[i].getDisplayMode();
-            screenPool.add(new Screen(dmode.getWidth(), dmode.getHeight(), i));
+            DisplayMode displayMode = devices[i].getDisplayMode();
+            screenPool.add(new Screen(displayMode.getWidth(), displayMode.getHeight(), i));
         }
 
         for (Screen screen : screenPool) {
@@ -30,6 +30,11 @@ public class Main {
             System.out.println("Number: " + screen.getScreenNumber());
             System.out.println("Width: " + screen.getWidth());
             System.out.println("Height: " + screen.getHeight());
+        }
+
+        while (true) {
+            System.out.println(MouseInfo.getPointerInfo().getLocation().getX() + " " + MouseInfo.getPointerInfo().getLocation().getY());
+            Thread.sleep(1000);
         }
     }
 }
