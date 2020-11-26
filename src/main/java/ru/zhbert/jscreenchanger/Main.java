@@ -19,17 +19,17 @@ public class Main {
 
         GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] devices = environment.getScreenDevices();
-        System.out.println("Найдено экранов: " + devices.length);
+        System.out.println("Screens found: " + devices.length);
         for (int i=0; i<devices.length; i++) {
             DisplayMode dmode = devices[i].getDisplayMode();
             screenPool.add(new Screen(dmode.getWidth(), dmode.getHeight(), i));
         }
 
         for (Screen screen : screenPool) {
-            System.out.println("Параметры " + screen.getScreenNumber() + " монитора:");
-            System.out.println("Номер: " + screen.getScreenNumber());
-            System.out.println("Ширина: " + screen.getWidth());
-            System.out.println("Высота: " + screen.getHeight());
+            System.out.println("Parameters of " + screen.getScreenNumber() + " monitor:");
+            System.out.println("Number: " + screen.getScreenNumber());
+            System.out.println("Width: " + screen.getWidth());
+            System.out.println("Height: " + screen.getHeight());
         }
     }
 }
