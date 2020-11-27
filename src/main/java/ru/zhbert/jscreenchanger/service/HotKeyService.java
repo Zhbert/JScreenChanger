@@ -3,11 +3,13 @@ package ru.zhbert.jscreenchanger.service;
 import com.tulskiy.keymaster.common.HotKey;
 import com.tulskiy.keymaster.common.HotKeyListener;
 import com.tulskiy.keymaster.common.Provider;
+import ru.zhbert.jscreenchanger.domain.Screen;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class HotKeyService {
 
@@ -15,21 +17,20 @@ public class HotKeyService {
 
     private HotKeyListener listener;
 
-    public HotKeyService() {
+    private ArrayList<Screen> screenPool;
+
+    private Robot robot;
+
+    public HotKeyService(final ArrayList<Screen> screenPool) throws AWTException {
         this.listener = new HotKeyListener() {
             public void onHotKey(HotKey hotKey) {
-                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                int screenHeight = screenSize.height;
-                int screenWidth = screenSize.width;
-                Robot robot = null;
-                try {
-                    robot = new Robot();
-                } catch (AWTException e) {
-                    e.printStackTrace();
-                }
-                robot.mouseMove(screenWidth/2, screenHeight/2);
+                Screen screen = screenPool.get(0);
+                robot.mouseMove(screen.getWidthHalf(), screen.getHeightHalf());
             }
         };
+        this.screenPool = screenPool;
+
+        this.robot = new Robot();
     }
 
     public void start() {

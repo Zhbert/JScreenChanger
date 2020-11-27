@@ -13,9 +13,6 @@ public class Main {
 
         ArrayList<Screen> screenPool = new ArrayList<Screen>();
 
-        HotKeyService hotKeyService = new HotKeyService();
-        hotKeyService.start();
-
         GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] devices = environment.getScreenDevices();
         System.out.println("Screens found: " + devices.length);
@@ -36,6 +33,9 @@ public class Main {
             Thread.sleep(1000);
         }
         */
+
+        HotKeyService hotKeyService = new HotKeyService(screenPool);
+        hotKeyService.start();
 
         Scanner in = new Scanner(System.in);
         System.out.print("Input a command: ");

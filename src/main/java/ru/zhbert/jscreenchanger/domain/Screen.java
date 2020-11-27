@@ -8,6 +8,10 @@ public class Screen {
 
     private int screenNumber;
 
+    private int heightHalf;
+
+    private int widthHalf;
+
     public Screen() {
     }
 
@@ -15,6 +19,9 @@ public class Screen {
         this.width = width;
         this.height = height;
         this.screenNumber = screenNumber;
+
+        this.heightHalf = this.height/2;
+        this.widthHalf = this.width/2;
     }
 
     public int getWidth() {
@@ -39,5 +46,21 @@ public class Screen {
 
     public void setScreenNumber(int screenNumber) {
         this.screenNumber = screenNumber;
+    }
+
+    public int getHeightHalf() {
+        return heightHalf;
+    }
+
+    public void setHeightHalf(int heightHalf) {
+        this.heightHalf = heightHalf;
+    }
+
+    public int getWidthHalf() {
+        return widthHalf;
+    }
+
+    public void setWidthHalf(int widthHalf) {
+        this.widthHalf = widthHalf;
     }
 }
