@@ -16,12 +16,6 @@ public class Main {
         HotKeyService hotKeyService = new HotKeyService();
         hotKeyService.start();
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenHeight = screenSize.height;
-        int screenWidth = screenSize.width;
-        Robot robot = new Robot();
-        robot.mouseMove(screenWidth/2, screenHeight/2);
-
         GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] devices = environment.getScreenDevices();
         System.out.println("Screens found: " + devices.length);
