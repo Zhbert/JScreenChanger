@@ -1,5 +1,7 @@
 package ru.zhbert.jscreenchanger.domain;
 
+import java.awt.*;
+
 public class Screen {
 
     private int width;
@@ -12,16 +14,26 @@ public class Screen {
 
     private int widthHalf;
 
+    private GraphicsDevice graphicsDevice;
+
     public Screen() {
     }
 
-    public Screen(int width, int height, int screenNumber) {
+    public Screen(int width, int height, int screenNumber, GraphicsDevice graphicsDevice) {
         this.width = width;
         this.height = height;
         this.screenNumber = screenNumber;
+        this.graphicsDevice = graphicsDevice;
 
         this.heightHalf = this.height/2;
         this.widthHalf = this.width/2;
+    }
+
+    @Override
+    public String toString() {
+        return "Screen number: " + this.screenNumber +
+                "; Width: " + this.width +
+                "; Height: " + this.height;
     }
 
     public int getWidth() {
@@ -62,5 +74,13 @@ public class Screen {
 
     public void setWidthHalf(int widthHalf) {
         this.widthHalf = widthHalf;
+    }
+
+    public GraphicsDevice getGraphicsDevice() {
+        return graphicsDevice;
+    }
+
+    public void setGraphicsDevice(GraphicsDevice graphicsDevice) {
+        this.graphicsDevice = graphicsDevice;
     }
 }

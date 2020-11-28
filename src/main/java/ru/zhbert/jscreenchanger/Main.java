@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws AWTException, InterruptedException {
+    public static void main(String[] args) throws AWTException {
 
         ArrayList<Screen> screenPool = new ArrayList<Screen>();
 
@@ -18,21 +18,12 @@ public class Main {
         System.out.println("Screens found: " + devices.length);
         for (int i=0; i<devices.length; i++) {
             DisplayMode displayMode = devices[i].getDisplayMode();
-            screenPool.add(new Screen(displayMode.getWidth(), displayMode.getHeight(), i));
+            screenPool.add(new Screen(displayMode.getWidth(), displayMode.getHeight(), i, devices[i]));
         }
 
         for (Screen screen : screenPool) {
-            System.out.println("Parameters of " + screen.getScreenNumber() + " monitor:");
-            System.out.println("Number: " + screen.getScreenNumber());
-            System.out.println("Width: " + screen.getWidth());
-            System.out.println("Height: " + screen.getHeight());
+            System.out.println(screen.toString());
         }
-/*
-        while (true) {
-            System.out.println(MouseInfo.getPointerInfo().getLocation().getX() + " " + MouseInfo.getPointerInfo().getLocation().getY());
-            Thread.sleep(1000);
-        }
-        */
 
         HotKeyService hotKeyService = new HotKeyService(screenPool);
         hotKeyService.start();
