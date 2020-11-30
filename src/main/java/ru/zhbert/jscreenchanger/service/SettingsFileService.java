@@ -1,7 +1,6 @@
 package ru.zhbert.jscreenchanger.service;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class SettingsFileService {
 
@@ -45,11 +44,11 @@ public class SettingsFileService {
         return false;
     }
 
-    public void setSettings(String settings, String setbools) throws IOException {
+    public void setSettings(String settings, String setBools) throws IOException {
         FileWriter writer = new FileWriter(settingsPath + File.separator + settingsFile);
         String lineSeparator = System.getProperty("line.separator");
         writer.write(settings + lineSeparator);
-        writer.write(setbools);
+        writer.write(setBools);
         writer.close();
         this.settings = settings;
     }

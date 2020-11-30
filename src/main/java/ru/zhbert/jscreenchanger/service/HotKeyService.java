@@ -54,16 +54,16 @@ public class HotKeyService {
                     provider.stop();
                     System.out.println("Writing settings in settings file...");
                     String settings = "";
-                    String setbools = "";
+                    String setBools = "";
                     for (int i : screensSet) {
                         settings = String.join(" ", settings, String.valueOf(i));
                     }
                     for (Boolean i : screenResolutionSet) {
-                        setbools = String.join(" ", setbools, String.valueOf(i));
+                        setBools = String.join(" ", setBools, String.valueOf(i));
                     }
                     System.out.println("Settings string is: " + settings);
                     try {
-                        settingsFileService.setSettings(settings.substring(1), setbools.substring(1));
+                        settingsFileService.setSettings(settings.substring(1), setBools.substring(1));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
