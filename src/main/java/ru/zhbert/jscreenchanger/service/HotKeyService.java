@@ -24,8 +24,9 @@ public class HotKeyService {
     public HotKeyService(final ArrayList<Screen> screenPool) throws AWTException {
         this.listener = new HotKeyListener() {
             public void onHotKey(HotKey hotKey) {
-                Screen screen = screenPool.get(0);
-                robot.mouseMove(screen.getWidthHalf(), screen.getHeightHalf());
+                /*Screen screen = screenPool.get(0);
+                robot.mouseMove(screen.getWidthHalf(), screen.getHeightHalf());*/
+                System.out.println(MouseInfo.getPointerInfo().getDevice().getIDstring() + " " + MouseInfo.getPointerInfo().getDevice().getType());
             }
         };
         this.screenPool = screenPool;

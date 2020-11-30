@@ -6,7 +6,7 @@
 
     <groupId>ru.zhbert</groupId>
     <artifactId>JScreenChanger</artifactId>
-    <version>0.0.1.4</version>
+    <version>0.0.1.9</version>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.github.tulskiy/jkeymaster -->
