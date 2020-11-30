@@ -15,8 +15,6 @@ public class Main {
 
         ArrayList<Screen> screenPool = new ArrayList<Screen>();
 
-        SettingsFileService settingsFileService = new SettingsFileService();
-
         GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] devices = environment.getScreenDevices();
         System.out.println("Screens found: " + devices.length);
@@ -24,13 +22,15 @@ public class Main {
             DisplayMode displayMode = devices[i].getDisplayMode();
             screenPool.add(new Screen(displayMode.getWidth(), displayMode.getHeight(), i, devices[i]));
         }
-
         for (Screen screen : screenPool) {
             System.out.println(screen.toString());
         }
 
+        SettingsFileService settingsFileService = new SettingsFileService();
+        settingsFileService.readSettings();
+
         HotKeyService hotKeyService = new HotKeyService(screenPool);
-        hotKeyService.start();
+        hotKeyService.settingStart(settingsFileService);
 
         Scanner in = new Scanner(System.in);
         System.out.print("Input a command: ");

@@ -6,7 +6,7 @@
 
     <groupId>ru.zhbert</groupId>
     <artifactId>JScreenChanger</artifactId>
-    <version>0.0.1.9</version>
+    <version>0.0.1.13</version>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.github.tulskiy/jkeymaster -->
@@ -72,6 +72,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>

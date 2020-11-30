@@ -1,13 +1,15 @@
 package ru.zhbert.jscreenchanger.service;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 
 public class SettingsFileService {
 
-    private String settingsPath = System.getProperty("user.home") + File.separator + ".jscreenchanger";
+    final private String settingsPath = System.getProperty("user.home") + File.separator + ".jscreenchanger";
 
-    private String settingsFile = "jscreenchanger.conf";
+    final private String settingsFile = "jscreenchanger.conf";
+
+    private String settings = null;
 
     public SettingsFileService() throws IOException {
         File file = new File(settingsPath);
@@ -24,5 +26,31 @@ public class SettingsFileService {
         }
 
         System.out.println(file.toURI());
+    }
+
+    public boolean readSettings() {
+        try {
+            File file = new File(settingsPath + File.separator + settingsFile);
+            FileReader fr = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fr);
+            String line = reader.readLine();
+            while (line != null) {
+                settings = line;
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
+    }
+
+    public void setSettings(String settings, String setbools) throws IOException {
+        FileWriter writer = new FileWriter(settingsPath + File.separator + settingsFile);
+        String lineSeparator = System.getProperty("line.separator");
+        writer.write(settings + lineSeparator);
+        writer.write(setbools);
+        writer.close();
+        this.settings = settings;
     }
 }
