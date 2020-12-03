@@ -19,6 +19,8 @@ public class Main {
 
         SettingsFileService settingsFileService = new SettingsFileService();
         settingsFileService.readSettings();
+        System.out.println(settingsFileService.getScreenDirection());
+        System.out.println(settingsFileService.getScreenPositions());
 
         viewScreenInfo(screenPool);
 
@@ -28,9 +30,11 @@ public class Main {
                 hotKeyService.settingStart(settingsFileService);
             } else {
                 hotKeyService.start();
+                ArrayList ar = settingsFileService.setScreenChangers(screenPool);
             }
         } else {
             hotKeyService.start();
+            ArrayList ar = settingsFileService.setScreenChangers(screenPool);
         }
 
         getScanner();
