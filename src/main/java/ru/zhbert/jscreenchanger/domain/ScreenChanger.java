@@ -51,11 +51,12 @@ public class ScreenChanger {
         this.nextScreenChanger = nextScreenChanger;
     }
 
-    public boolean isDirection() {
+    public boolean getDirection() {
         return direction;
     }
 
     public void setDirection(boolean direction) {
         this.direction = direction;
     }
+
 }

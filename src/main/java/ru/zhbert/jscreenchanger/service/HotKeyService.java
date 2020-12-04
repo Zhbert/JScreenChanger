@@ -4,6 +4,7 @@ import com.tulskiy.keymaster.common.HotKey;
 import com.tulskiy.keymaster.common.HotKeyListener;
 import com.tulskiy.keymaster.common.Provider;
 import ru.zhbert.jscreenchanger.domain.Screen;
+import ru.zhbert.jscreenchanger.domain.ScreenChanger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,13 +20,19 @@ public class HotKeyService {
     private ArrayList<Boolean> screenResolutionSet = new ArrayList<>();
     private int setCounter;
     private SettingsFileService settingsFileService;
+    private ArrayList<ScreenChanger> screenChangers = new ArrayList<>();
+    private Screen screen;
+    private ScreenChanger chng;
 
     private HotKeyListener listener = new HotKeyListener() {
         public void onHotKey(HotKey hotKey) {
-            /*Screen screen = screenPool.get(0);
-            robot.mouseMove(screen.getWidthHalf(), screen.getHeightHalf());*/
-            System.out.println(MouseInfo.getPointerInfo().getDevice().getIDstring() + " "
-                    + MouseInfo.getPointerInfo().getDevice().getType());
+            for (ScreenChanger changer : screenChangers) {
+                if (MouseInfo.getPointerInfo().getDevice() == changer.getScreen().getGraphicsDevice()) {
+                    screen = changer.getScreen();
+                    chng = changer;
+                }
+            }
+            robot.mouseMove(chng.getNextScreenChanger().getPosition(), screen.getHeightHalf());
         }
     };
 
@@ -78,8 +85,9 @@ public class HotKeyService {
         this.setCounter = 0;
     }
 
-    public void start() {
+    public void start(ArrayList<ScreenChanger> screenChangers) {
         provider.register(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, InputEvent.CTRL_MASK), listener);
+        this.screenChangers = screenChangers;
     }
 
     public void settingStart(SettingsFileService settingsFileService) {

@@ -93,9 +93,37 @@ public class SettingsFileService {
             }
         }
 
+        //Generate next changers
+        for (int i = 0; i < screenChangers.size(); i++) {
+            if (i+1 <= screenChangers.size()-1) {
+                screenChangers.get(i).setNextScreenChanger(screenChangers.get(i+1));
+            } else screenChangers.get(i).setNextScreenChanger(screenChangers.get(0));
+        }
+
+        //Generate positions
+        for (int i = 0; i < screenChangers.size(); i++) {
+            if (i+1 <= screenChangers.size()-1) {
+                if (!screenChangers.get(i + 1).getDirection()) {
+                    screenChangers.get(i).setPosition(screenChangers.get(i).getPosition()-
+                            screenChangers.get(i+1).getScreen().getWidth());
+                } else counter = i + 1;
+            }
+        }
+        for (int i = counter; i < screenChangers.size(); i++) {
+            if (i+1 <= screenChangers.size()-1) {
+                if (screenChangers.get(i + 1).getDirection()) {
+                    screenChangers.get(i).setPosition(screenChangers.get(i).getPosition()+
+                            screenChangers.get(i+1).getScreen().getWidth());
+                }
+            }
+        }
+
+
         for (ScreenChanger scch : screenChangers) {
             System.out.println(scch.getScreen().getScreenNumber());
             System.out.println(scch.getPosition());
+            System.out.println(scch.getNextScreenChanger().getScreen().getScreenNumber());
+            System.out.println(scch.getNextScreenChanger().getPosition());
         }
         return screenChangers;
     }

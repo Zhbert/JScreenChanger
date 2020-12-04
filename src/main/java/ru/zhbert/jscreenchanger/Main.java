@@ -29,12 +29,10 @@ public class Main {
             if (arg.equals("--setup")) {
                 hotKeyService.settingStart(settingsFileService);
             } else {
-                hotKeyService.start();
-                ArrayList ar = settingsFileService.setScreenChangers(screenPool);
+                hotKeyService.start(settingsFileService.setScreenChangers(screenPool));
             }
         } else {
-            hotKeyService.start();
-            ArrayList ar = settingsFileService.setScreenChangers(screenPool);
+            hotKeyService.start(settingsFileService.setScreenChangers(screenPool));
         }
 
         getScanner();
