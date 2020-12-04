@@ -28,7 +28,7 @@ public class HotKeyService {
         public void onHotKey(HotKey hotKey) {
             for (ScreenChanger changer : screenChangers) {
                 if (MouseInfo.getPointerInfo().getDevice() == changer.getScreen().getGraphicsDevice()) {
-                    screen = changer.getScreen();
+                    screen = changer.getNextScreenChanger().getScreen();
                     chng = changer;
                 }
             }

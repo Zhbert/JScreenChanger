@@ -120,10 +120,10 @@ public class SettingsFileService {
 
 
         for (ScreenChanger scch : screenChangers) {
-            System.out.println(scch.getScreen().getScreenNumber());
-            System.out.println(scch.getPosition());
-            System.out.println(scch.getNextScreenChanger().getScreen().getScreenNumber());
-            System.out.println(scch.getNextScreenChanger().getPosition());
+            System.out.println("Screen number: " + scch.getScreen().getScreenNumber());
+            System.out.println("Position: " + scch.getPosition());
+            System.out.println("Next Screen number: " + scch.getNextScreenChanger().getScreen().getScreenNumber());
+            System.out.println("Next screen position: " + scch.getNextScreenChanger().getPosition());
         }
         return screenChangers;
     }
