@@ -80,13 +80,13 @@ public class SettingsFileService {
 
         //Generate new screens pool
         counter = 0;
-        for(int i : screenNumbers) {
+        for (int i : screenNumbers) {
             for (int y = 0; y < screenPool.size(); y++) {
                 ScreenChanger screenChanger = new ScreenChanger();
                 if (screenPool.get(y).getScreenNumber() == i) {
                     screenChanger.setScreen(screenPool.get(y));
                     screenChanger.setDirection(screenDirections.get(i));
-                    screenChanger.setPosition(screenChanger.getScreen().getWidth()/2);
+                    screenChanger.setPosition(screenChanger.getScreen().getWidth() / 2);
                     screenChangers.add(screenChanger);
                 }
                 counter++;
@@ -95,35 +95,47 @@ public class SettingsFileService {
 
         //Generate next changers
         for (int i = 0; i < screenChangers.size(); i++) {
-            if (i+1 <= screenChangers.size()-1) {
-                screenChangers.get(i).setNextScreenChanger(screenChangers.get(i+1));
+            if (i + 1 <= screenChangers.size() - 1) {
+                screenChangers.get(i).setNextScreenChanger(screenChangers.get(i + 1));
             } else screenChangers.get(i).setNextScreenChanger(screenChangers.get(0));
         }
 
         //Generate positions
+        boolean isFirst = true;
         for (int i = 0; i < screenChangers.size(); i++) {
-            if (i+1 <= screenChangers.size()-1) {
-                if (!screenChangers.get(i + 1).getDirection()) {
-                    screenChangers.get(i).setPosition(screenChangers.get(i).getPosition()-
-                            screenChangers.get(i+1).getScreen().getWidth());
-                } else counter = i + 1;
+            if (i + 1 <= screenChangers.size() - 1) {
+                if (isFirst) {
+                    screenChangers.get(i).setPosition(screenChangers.get(i).getPosition()-(screenChangers.get(i).getPosition()*2));
+                    isFirst = false;
+                }
+                if (screenChangers.get(i + 1).getDirection()) {
+                        screenChangers.get(i).setPosition(screenChangers.get(i).getPosition() -
+                                screenChangers.get(i + 1).getScreen().getWidth());
+                        counter = i + 1;
+                        System.out.println("Set: " + screenChangers.get(i).getPosition());
+                }
             }
         }
+        isFirst = true;
         for (int i = counter; i < screenChangers.size(); i++) {
-            if (i+1 <= screenChangers.size()-1) {
-                if (screenChangers.get(i + 1).getDirection()) {
-                    screenChangers.get(i).setPosition(screenChangers.get(i).getPosition()+
-                            screenChangers.get(i+1).getScreen().getWidth());
+            if (i + 1 <= screenChangers.size() - 1) {
+                if (isFirst) isFirst = false;
+                if (!screenChangers.get(i + 1).getDirection()) {
+                    screenChangers.get(i).setPosition(screenChangers.get(i).getPosition() +
+                            screenChangers.get(i + 1).getScreen().getWidth());
+                    System.out.println("Set: " + screenChangers.get(i).getPosition());
                 }
             }
         }
 
 
         for (ScreenChanger scch : screenChangers) {
+            System.out.println("_______________________________________________________");
             System.out.println("Screen number: " + scch.getScreen().getScreenNumber());
             System.out.println("Position: " + scch.getPosition());
             System.out.println("Next Screen number: " + scch.getNextScreenChanger().getScreen().getScreenNumber());
             System.out.println("Next screen position: " + scch.getNextScreenChanger().getPosition());
+            System.out.println("_______________________________________________________");
         }
         return screenChangers;
     }
