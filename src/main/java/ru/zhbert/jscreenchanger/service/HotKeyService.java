@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -27,7 +28,15 @@ public class HotKeyService {
     private HotKeyListener listener = new HotKeyListener() {
         public void onHotKey(HotKey hotKey) {
             for (ScreenChanger changer : screenChangers) {
-                if (MouseInfo.getPointerInfo().getDevice() == changer.getScreen().getGraphicsDevice()) {
+                if (MouseInfo.getPointerInfo().getDevice().getIDstring().equals(changer.getScreen().getGraphicsDevice().getIDstring())) {
+                    System.out.println("_________________________");
+                    System.out.println("Current position: " + MouseInfo.getPointerInfo().getLocation().getX() + " "
+                            + MouseInfo.getPointerInfo().getLocation().getY());
+                    System.out.println("Current screen: " + " " + MouseInfo.getPointerInfo().getDevice().getIDstring());
+                    System.out.println("Next screen: " + changer.getNextScreenChanger().getScreen().getGraphicsDevice().getIDstring());
+                    System.out.println("Next position: " + changer.getNextScreenChanger().getPosition());
+                    System.out.println("Next screen number: " + changer.getNextScreenChanger().getScreen().getScreenNumber());
+
                     screen = changer.getNextScreenChanger().getScreen();
                     chng = changer;
                 }
@@ -51,7 +60,7 @@ public class HotKeyService {
                         if (MouseInfo.getPointerInfo().getDevice().equals(screen.getGraphicsDevice())) {
                             System.out.println("Screen detected: " + screen.getScreenNumber());
                             screensSet.add(screen.getScreenNumber());
-                            screenResolutionSet.add(MouseInfo.getPointerInfo().getLocation().getX()<0);
+                            screenResolutionSet.add(MouseInfo.getPointerInfo().getLocation().getX() < 0);
                             setCounter++;
                         }
                     }

@@ -116,16 +116,15 @@ public class SettingsFileService {
                 }
             }
         }
-        isFirst = true;
-        for (int i = counter; i < screenChangers.size(); i++) {
-            if (i + 1 <= screenChangers.size() - 1) {
-                if (isFirst) isFirst = false;
-                if (!screenChangers.get(i + 1).getDirection()) {
-                    screenChangers.get(i).setPosition(screenChangers.get(i).getPosition() +
-                            screenChangers.get(i + 1).getScreen().getWidth());
-                    System.out.println("Set: " + screenChangers.get(i).getPosition());
+        for (int i = screenChangers.size() - 1; i >= counter; i--) {
+            if (i - 1 >= 0) {
+                if (i == screenChangers.size() - 1) {
+                    for (int y = i-1; y >= counter; y--) {
+                        screenChangers.get(i).setPosition(screenChangers.get(i).getPosition()+screenChangers.get(y).getPosition());
+                    }
                 }
             }
+            System.out.println("Set: " + screenChangers.get(i).getPosition());
         }
 
 
