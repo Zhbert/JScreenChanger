@@ -19,8 +19,6 @@ public class Main {
 
         SettingsFileService settingsFileService = new SettingsFileService();
         settingsFileService.readSettings();
-        System.out.println(settingsFileService.getScreenDirection());
-        System.out.println(settingsFileService.getScreenPositions());
 
         viewScreenInfo(screenPool);
 

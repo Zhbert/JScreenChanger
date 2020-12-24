@@ -124,7 +124,6 @@ public class SettingsFileService {
                     }
                 }
             }
-            System.out.println("Set: " + screenChangers.get(i).getPosition());
         }
 
 
@@ -132,6 +131,8 @@ public class SettingsFileService {
             System.out.println("_______________________________________________________");
             System.out.println("Screen number: " + scch.getScreen().getScreenNumber());
             System.out.println("Position: " + scch.getPosition());
+            System.out.println("Max position: " + scch.getMaxPosition());
+            System.out.println("Min position: " + scch.getMinPosition());
             System.out.println("Next Screen number: " + scch.getNextScreenChanger().getScreen().getScreenNumber());
             System.out.println("Next screen position: " + scch.getNextScreenChanger().getPosition());
             System.out.println("_______________________________________________________");

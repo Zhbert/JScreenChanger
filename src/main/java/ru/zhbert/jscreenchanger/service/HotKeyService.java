@@ -28,17 +28,19 @@ public class HotKeyService {
     private HotKeyListener listener = new HotKeyListener() {
         public void onHotKey(HotKey hotKey) {
             for (ScreenChanger changer : screenChangers) {
-                if (MouseInfo.getPointerInfo().getDevice().getIDstring().equals(changer.getScreen().getGraphicsDevice().getIDstring())) {
+                if (MouseInfo.getPointerInfo().getLocation().getX() < changer.getMaxPosition() ||
+                        MouseInfo.getPointerInfo().getLocation().getX() > changer.getMinPosition()) {
                     System.out.println("_________________________");
-                    System.out.println("Current position: " + MouseInfo.getPointerInfo().getLocation().getX() + " "
+                    System.out.println("Current position: X - " + MouseInfo.getPointerInfo().getLocation().getX() + " Y - "
                             + MouseInfo.getPointerInfo().getLocation().getY());
-                    System.out.println("Current screen: " + " " + MouseInfo.getPointerInfo().getDevice().getIDstring());
-                    System.out.println("Next screen: " + changer.getNextScreenChanger().getScreen().getGraphicsDevice().getIDstring());
+                    System.out.println("Current screen: " + " " + changer.getScreen().getScreenNumber());
+                    System.out.println("Next screen: " + changer.getScreen().getScreenNumber());
                     System.out.println("Next position: " + changer.getNextScreenChanger().getPosition());
                     System.out.println("Next screen number: " + changer.getNextScreenChanger().getScreen().getScreenNumber());
 
                     screen = changer.getNextScreenChanger().getScreen();
                     chng = changer;
+                    break;
                 }
             }
             robot.mouseMove(chng.getNextScreenChanger().getPosition(), screen.getHeightHalf());
@@ -52,40 +54,37 @@ public class HotKeyService {
     public HotKeyService(final ArrayList<Screen> screenPool) throws AWTException {
         System.out.println("Start setting process.");
 
-        this.settingsListener = new HotKeyListener() {
-            @Override
-            public void onHotKey(HotKey hotKey) {
-                if (setCounter < screenPool.size()) {
-                    for (Screen screen : screenPool) {
-                        if (MouseInfo.getPointerInfo().getDevice().equals(screen.getGraphicsDevice())) {
-                            System.out.println("Screen detected: " + screen.getScreenNumber());
-                            screensSet.add(screen.getScreenNumber());
-                            screenResolutionSet.add(MouseInfo.getPointerInfo().getLocation().getX() < 0);
-                            setCounter++;
-                        }
+        this.settingsListener = hotKey -> {
+            if (setCounter < screenPool.size()) {
+                for (Screen screen : screenPool) {
+                    if (MouseInfo.getPointerInfo().getDevice().equals(screen.getGraphicsDevice())) {
+                        System.out.println("Screen detected: " + screen.getScreenNumber());
+                        screensSet.add(screen.getScreenNumber());
+                        screenResolutionSet.add(MouseInfo.getPointerInfo().getLocation().getX() < 0);
+                        setCounter++;
                     }
-                } else {
-                    System.out.println("All the screens are set up! Closed hotkeys registrations...");
-                    provider.reset();
-                    provider.stop();
-                    System.out.println("Writing settings in settings file...");
-                    String settings = "";
-                    String setBools = "";
-                    for (int i : screensSet) {
-                        settings = String.join(" ", settings, String.valueOf(i));
-                    }
-                    for (Boolean i : screenResolutionSet) {
-                        setBools = String.join(" ", setBools, String.valueOf(i));
-                    }
-                    System.out.println("Settings string is: " + settings);
-                    try {
-                        settingsFileService.setSettings(settings.substring(1), setBools.substring(1));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println("Exiting...");
-                    System.exit(0);
                 }
+            } else {
+                System.out.println("All the screens are set up! Closed hotkeys registrations...");
+                provider.reset();
+                provider.stop();
+                System.out.println("Writing settings in settings file...");
+                String settings = "";
+                String setBools = "";
+                for (int i : screensSet) {
+                    settings = String.join(" ", settings, String.valueOf(i));
+                }
+                for (Boolean i : screenResolutionSet) {
+                    setBools = String.join(" ", setBools, String.valueOf(i));
+                }
+                System.out.println("Settings string is: " + settings);
+                try {
+                    settingsFileService.setSettings(settings.substring(1), setBools.substring(1));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Exiting...");
+                System.exit(0);
             }
         };
 

@@ -7,6 +7,8 @@ public class ScreenChanger {
     private int nextNumber;
     private ScreenChanger nextScreenChanger;
     private boolean direction;
+    private int maxPosition;
+    private int minPosition;
 
     public ScreenChanger(Screen screen, int position, int nextNumber, ScreenChanger nextScreenChanger, boolean direction) {
         this.screen = screen;
@@ -33,6 +35,8 @@ public class ScreenChanger {
 
     public void setPosition(int position) {
         this.position = position;
+        this.maxPosition = position + this.screen.getWidth()/2;
+        this.minPosition = position - this.screen.getWidth()/2;
     }
 
     public int getNextNumber() {
@@ -59,4 +63,19 @@ public class ScreenChanger {
         this.direction = direction;
     }
 
+    public int getMaxPosition() {
+        return maxPosition;
+    }
+
+    public void setMaxPosition(int maxPosition) {
+        this.maxPosition = maxPosition;
+    }
+
+    public int getMinPosition() {
+        return minPosition;
+    }
+
+    public void setMinPosition(int minPosition) {
+        this.minPosition = minPosition;
+    }
 }
