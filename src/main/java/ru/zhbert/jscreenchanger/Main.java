@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//main class
 public class Main {
 
     public static void main(String[] args) throws AWTException, IOException {
