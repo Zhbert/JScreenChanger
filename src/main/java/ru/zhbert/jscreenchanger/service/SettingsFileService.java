@@ -6,6 +6,13 @@ import ru.zhbert.jscreenchanger.domain.ScreenChanger;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * @brief Class for working with settings file
+ * @author zhbert
+ * @copyright GPLv3
+ * @date 01.2021
+ * @version 0.0.1
+ */
 public class SettingsFileService {
 
     final private String settingsPath = System.getProperty("user.home") + File.separator + ".jscreenchanger";
