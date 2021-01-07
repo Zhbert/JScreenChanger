@@ -27,6 +27,9 @@ hs_err_pid*
 .idea
 out
 
+#Doxygen generated files
+docs/
+
 # Maven
 log/
 target/
