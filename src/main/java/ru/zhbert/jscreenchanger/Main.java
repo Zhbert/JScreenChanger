@@ -1,6 +1,7 @@
 package ru.zhbert.jscreenchanger;
 
 import ru.zhbert.jscreenchanger.domain.Screen;
+import ru.zhbert.jscreenchanger.forms.SetupForm;
 import ru.zhbert.jscreenchanger.service.HotKeyService;
 import ru.zhbert.jscreenchanger.service.SettingsFileService;
 
@@ -28,19 +29,22 @@ public class Main {
         HotKeyService hotKeyService = new HotKeyService(screenPool);
 
         SettingsFileService settingsFileService = new SettingsFileService();
-        settingsFileService.readSettings();
 
         viewScreenInfo(screenPool);
+
+        SetupForm setupForm = new SetupForm();
+        setupForm.setSize(new Dimension(640, 480));
+        setupForm.setVisible(true);
 
         if (args.length > 0) {
             String arg = args[0];
             if (arg.equals("--setup")) {
-                hotKeyService.settingStart(settingsFileService);
+
             } else {
-                hotKeyService.start(settingsFileService.setScreenChangers(screenPool));
+
             }
         } else {
-            hotKeyService.start(settingsFileService.setScreenChangers(screenPool));
+
         }
 
         getScanner();
